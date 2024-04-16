@@ -21,8 +21,8 @@ block_color = (53, 115, 255)
 car_width =73
 
 
-setmode = (screen_width, screen_height)
-gameDisplay = pygame.display.set_mode
+
+gameDisplay = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('game')
 clock = pygame.time.Clock
 
