@@ -71,10 +71,11 @@ def game_intro():
 				pygame.quit()
 				quit()
 
-gameDisplay.fill(white)	
+gameDisplay.fill((white))
+
 largeText = pygame.font.Font('freesansbold.ttf',115)	
-TextSurf, TextRect = text_objects("game", LargeText)	
-TextRect.center = ((display_width/2),(display_height/2))
+TextSurf, TextRect = text_objects("game", largeText)	
+TextRect.center = ((screen_width/2),(screen_height/2))
 gameDisplay.blit(TextSurf, TextRect)
 
 #making button interactive
@@ -87,7 +88,7 @@ else:
 pygame.draw.rect(gameDisplay, red,(550,450,100,50))
 
 pygame.display.update()
-clock.tick(15)		
+clock.time(15)		
 
 # drawing button
 pygame.draw.rect(gameDisplay, green, (150,450,100,50))
