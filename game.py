@@ -161,7 +161,7 @@ if x > thing_startx and x < thing_startx + thing_width or x+car_width >thing_sta
 pygame.display.update()	
 clock.tick(60)
 	
-#game_intro()
+game_intro()
 game_loop()
 pygame.quit()
 quit()
