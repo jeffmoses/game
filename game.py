@@ -40,7 +40,7 @@ def things(thingx, thingy, thingw, thingh, color):
 	pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
 
 
-def car(x, y):
+def car(x,y):
 	gameDisplay.blit(carImg, (x,y))
 
 
@@ -50,8 +50,8 @@ def text_objects(text, font):
 
 def message_display(text):
 	largeText = pygame.font.Font('freesansbold.ttf',115)
-	TextSurf, TextRect = text_objects(text, LargeText)	
-	TextRect.center = ((display_width/2),(display_height/2))
+	TextSurf, TextRect = text_objects(text, largeText)	
+	TextRect.center = ((screen_width/2),(screen_height/2))
 	gameDisplay.blit(TextSurf, TextRect)
 
 	pygame.display.update()
@@ -62,6 +62,21 @@ def message_display(text):
 
 def crash():
 	message_display('CRASHED')
+
+def button(msg, x,y,w,h,ic,ac):	
+	mouse = pygame.mouse.get_pos()
+
+if x+w > mouse[0] > x and y+h > mouse[1] > y:
+	pygame.draw.rect(gameDisplay, ac,(x,y,w,h))
+else:
+	pygame.draw.rect(gameDisplay, ic,(x,y,w,h))
+
+smallText = pygame.font.Font("freesansbold.ttf",20) 	
+TextSurf, TextRect =text_objects(msg, smallText)
+TextRect.center = ((x+(w/2)), (y+(h/2)))
+gameDisplay.blit(TextSurf, TextRect)
+
+
 
 def game_intro():
 	intro =True	
@@ -79,16 +94,11 @@ TextRect.center = ((screen_width/2),(screen_height/2))
 gameDisplay.blit(TextSurf, TextRect)
 
 #making button interactive
-mouse = pygame.mouse.get_pos()
-
-if 150+100 > mouse[0] > 150 and 450+50 > mouse[1] > 450:
-	pygame.draw.rect(gameDisplay, bright_green,(150,450,100,50))
-else:
-	pygame.draw.rect(gameDisplay, green,(150,450,100,50))
-pygame.draw.rect(gameDisplay, red,(550,450,100,50))
+button("GO!",150,450,100,50,green,bright_green)
+button("QUIT",550,450,100,50,red,bright_red)
 
 pygame.display.update()
-clock.time(15)		
+clock(15)		
 
 # drawing button
 pygame.draw.rect(gameDisplay, green, (150,450,100,50))
@@ -100,12 +110,12 @@ clock.tick(15)
 
 
 def game_loop():
-    x= (display_width * 0.45)
-    y= ( display_height *0.8)	
+    x= (screen_width * 0.45)
+    y= ( screen_height *0.8)	
 
 x_change= 0
 
-thing_startx = random.randrange(0, display_width)
+thing_startx = random.randrange(0, screen_width)
 thing_starty = -600
 thing_speed = 4
 thing_width = 100
@@ -138,15 +148,17 @@ while not gameExit:
 
 	things(thing_startx, thing_starty, thing_width, thing_height, block_color)
 	thing_starty += thing_speed
+
 	car(x,y)
-	things_dodged(dodged)
 
-if x > display_width - car_width or x < 0:
-	    crush()
+things_dodged(dodged)
 
-if thing_starty > display_height:
+if x > screen_width - car_width or x < 0:
+	    crash()
+
+if thing_starty > screen_height:
 			thing_starty = 0 - thing_height
-			thing_startx = random.randrange(0,display_width)	
+			thing_startx = random.randrange(0,screen_width)	
 			dodged += 1
 			thing_speed += 0.1
 			thing_width += (dodged * 1.2)
