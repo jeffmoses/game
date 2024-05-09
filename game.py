@@ -76,6 +76,31 @@ TextSurf, TextRect =text_objects(msg, smallText)
 TextRect.center = ((x+(w/2)), (y+(h/2)))
 gameDisplay.blit(TextSurf, TextRect)
 
+def quitgame ():
+	pygame.quit()
+	quit()
+
+def pause():
+	pause =True	
+	while pause:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+
+gameDisplay.fill((white))
+
+largeText = pygame.font.Font('freesansbold.ttf',115)	
+TextSurf, TextRect = text_objects("paused", largeText)	
+TextRect.center = ((screen_width/2),(screen_height/2))
+gameDisplay.blit(TextSurf, TextRect)
+
+#making button interactive
+button("Continue",150,450,100,50,green,bright_green,)
+button("QUIT",550,450,100,50,red,bright_red)
+
+pygame.display.update()
+clock(15)		
 
 
 def game_intro():
@@ -94,8 +119,8 @@ TextRect.center = ((screen_width/2),(screen_height/2))
 gameDisplay.blit(TextSurf, TextRect)
 
 #making button interactive
-button("GO!",150,450,100,50,green,bright_green)
-button("QUIT",550,450,100,50,red,bright_red)
+button("GO!",150,450,100,50,green,bright_green, game_loop)
+button("QUIT",550,450,100,50,red,bright_red, quitgame)
 
 pygame.display.update()
 clock(15)		
@@ -151,7 +176,7 @@ while not gameExit:
 
 	car(x,y)
 
-things_dodged(dodged)
+things_dodged= (dodged)
 
 if x > screen_width - car_width or x < 0:
 	    crash()
